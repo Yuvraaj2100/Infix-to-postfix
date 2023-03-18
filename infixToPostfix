@@ -1,0 +1,26 @@
+res = []
+oper = []
+priority = {"(": 0, "+": 1, "-": 1, "*": 2, "/": 2, "^": 3}
+A = input("Enter infix expression here: ")
+for i in A:
+    if i == "(":
+        oper.append(i)
+    elif i == ")":
+        while oper[-1] != "(":  # runs till '(' is reached...[-1] -> check from the back
+            E = oper.pop()  # removes the elements as it goes from the array  <-pop
+            res.append(E)  # adds elements uptil ( is reached into list(oper) <- push
+        oper.pop()  # removes the rest of the elements before ( by pop function
+    elif i == "+" or i == "/" or i == "*" or i == "^" or i == "-":
+        while priority[oper[-1]] >= priority[i]:
+            E = oper.pop()
+            res.append(E)
+            if len(oper) == 0:
+                break
+        oper.append(i)
+    else:
+        res.append(i)
+while len(oper) != 0:
+    E = oper.pop()
+    res.append(E)
+
+print("postfix expression is:", res)
